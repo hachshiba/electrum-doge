@@ -1,76 +1,58 @@
+<div align="center">
+
 # Electrum Doge
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![Dogecoin](https://img.shields.io/badge/network-Dogecoin-C2A633)](https://dogecoin.com/)
 [![GUI](https://img.shields.io/badge/gui-PyQt5-41CD52)](https://pypi.org/project/PyQt5/)
-[![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)](#setup)
+[![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)](#boot)
 [![License](https://img.shields.io/badge/license-MIT-green)](./UNLICENSE)
 
-## Description
+</div>
 
-Lightweight Dogecoin wallet derived from Electrum. Uses SPV, deterministic seeds, and a PyQt5 desktop interface. Full Dogecoin node is not required.
+Dogecoin wallet codebase built on Electrum architecture: SPV sync, deterministic seeds, local signing, desktop-first flow.
 
-## Core Features
+## Snapshot
 
-- SPV wallet operation over Electrum-style servers
-- Deterministic seed-based wallet generation and recovery
-- Transaction creation, signing, and broadcast
-- PyQt5 desktop GUI
-- Optional hardware wallet support
-- Cross-platform source builds
+- Stack: Python, PyQt5, libsecp256k1, cryptography
+- Model: SPV client, not a full Dogecoin node
+- Entry point: `./run_electrum`
+- Package target: desktop wallet
+- Repo state: upstream mirror with local repo cleanup
 
-## Setup
+## What It Does
 
-Requirements:
+- derives wallets from seed phrases
+- restores existing deterministic wallets
+- signs and broadcasts Dogecoin transactions
+- connects to Electrum-compatible servers
+- runs as a desktop GUI without a local blockchain copy
 
-- Python `3.8+`
-- `libsecp256k1`
-- `PyQt5`
-- `cryptography`
-
-Install:
+## Boot
 
 ```bash
 git clone https://github.com/hachshiba/electrum-doge.git
 cd electrum-doge
 git submodule update --init --recursive
 python3 -m pip install --user -e ".[gui,crypto]"
-```
-
-Build `libsecp256k1` locally if needed:
-
-```bash
-sudo apt-get install automake libtool
-./contrib/make_libsecp256k1.sh
-```
-
-## Usage
-
-Start:
-
-```bash
 ./run_electrum
 ```
 
-Tests:
+## Build Notes
 
-```bash
-pytest electrum/tests -v
-```
+- Python `3.8+`
+- `libsecp256k1` required
+- `PyQt5` required for GUI
+- local `libsecp256k1` build script: `./contrib/make_libsecp256k1.sh`
+- test entry: `pytest electrum/tests -v`
 
-Non-editable install:
+## Layout
 
-```bash
-python3 -m pip install --user .
-```
-
-## Security Notes
-
-- Protect seeds, keystores, and exported private keys.
-- Verify source and remote before building binaries.
-- Prefer deterministic build paths from `contrib/`.
-- Review server configuration before production use.
+- `electrum/` core wallet code
+- `contrib/` build and packaging helpers
+- `run_electrum` local launcher
+- `pubkeys/` signing and verification material
 
 ## License
 
-MIT-style license inherited from upstream. See [UNLICENSE](/home/frank/githubs/GITS/electrodoge/UNLICENSE).
+MIT-style upstream license. See [UNLICENSE](/home/frank/githubs/GITS/electrodoge/UNLICENSE).
