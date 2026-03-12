@@ -1,6 +1,9 @@
 # Electrum Doge
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
+[![Dogecoin](https://img.shields.io/badge/network-Dogecoin-C2A633)](https://dogecoin.com/)
+[![GUI](https://img.shields.io/badge/gui-PyQt5-41CD52)](https://pypi.org/project/PyQt5/)
+[![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)](#setup)
 [![License](https://img.shields.io/badge/license-MIT-green)](./UNLICENSE)
 
 ## Description
