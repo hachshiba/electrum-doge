@@ -1,167 +1,73 @@
-# ElectroDoge - Lightweight [Dogecoin](https://github.com/dogecoin/dogecoin) client
+# Electrum Doge
 
-May move to [bitbucket](https://bitbucket.org/naturevault/) or [Gitlab](https://gitlab.com/giverofmemory/) due to mandatory 2FA here.
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](./UNLICENSE)
 
-```
-Dogecoin Devs
-Fully Open Source with no conditions for everything including pictures and name
-Homepage: https://electrodoge.com
-Initial Commit: https://github.com/GlobalBoost/electrum/commit/6d7c7a1cb5c384377b24391bcbc7b797462b980a
+## Description
 
-and 
+Electrum Doge is a lightweight Dogecoin wallet derived from the Electrum codebase. It provides SPV-based wallet operation, deterministic key management, and a desktop GUI without requiring a full Dogecoin node.
 
-Electrum Devs
-Licence: MIT Licence
-Author: Thomas Voegtlin
-Language: Python (>= 3.8)
-Homepage: https://electrum.org/
-```
+## Core Features
 
-[![Build Status](https://api.cirrus-ci.com/github/spesmilo/electrum.svg?branch=master)](https://cirrus-ci.com/github/spesmilo/electrum)
-[![Test coverage statistics](https://coveralls.io/repos/github/spesmilo/electrum/badge.svg?branch=master)](https://coveralls.io/github/spesmilo/electrum?branch=master)
-[![Help translate Electrum online](https://d322cqt584bo4o.cloudfront.net/electrum/localized.svg)](https://crowdin.com/project/electrum)
+- Deterministic wallet generation and recovery from seed phrases
+- SPV verification against Electrum-compatible Dogecoin servers
+- Desktop GUI via PyQt5
+- Transaction creation, signing, and broadcast
+- Optional hardware wallet integrations through extra dependencies
+- Cross-platform packaging for Linux, macOS, Windows, and Android
 
+## Setup
 
-## Getting started
+System requirements:
 
-_(If you've come here looking to simply run Electrum,
-[you may download it here](https://electrum.org/#download).)_
+- Python `3.8+`
+- `libsecp256k1`
+- `PyQt5` for the GUI
+- `cryptography` for accelerated crypto operations
 
-Electrum itself is pure Python, and so are most of the required dependencies,
-but not everything. The following sections describe how to run from source, but here
-is a TL;DR:
+Clone and install:
 
-```
-$ sudo apt-get install libsecp256k1-0
-$ python3 -m pip install --user ".[gui,crypto]"
+```bash
+git clone https://github.com/hachshiba/electrum-doge.git
+cd electrum-doge
+git submodule update --init --recursive
+python3 -m pip install --user -e ".[gui,crypto]"
 ```
 
-### Not pure-python dependencies
+If `libsecp256k1` is not available from your package manager:
 
-If you want to use the Qt interface, install the Qt dependencies:
-```
-$ sudo apt-get install python3-pyqt5
-```
-
-For elliptic curve operations,
-[libsecp256k1](https://github.com/bitcoin-core/secp256k1)
-is a required dependency:
-```
-$ sudo apt-get install libsecp256k1-0
+```bash
+sudo apt-get install automake libtool
+./contrib/make_libsecp256k1.sh
 ```
 
-Alternatively, when running from a cloned repository, a script is provided to build
-libsecp256k1 yourself:
-```
-$ sudo apt-get install automake libtool
-$ ./contrib/make_libsecp256k1.sh
-```
+## Usage
 
-Due to the need for fast symmetric ciphers,
-[cryptography](https://github.com/pyca/cryptography) is required.
-Install from your package manager (or from pip):
-```
-$ sudo apt-get install python3-cryptography
+Run the wallet from the repository root:
+
+```bash
+./run_electrum
 ```
 
-If you would like hardware wallet support,
-[see this](https://github.com/spesmilo/electrum-docs/blob/master/hardware-linux.rst).
+Run tests:
 
-
-### Running from tar.gz
-
-If you downloaded the official package (tar.gz), you can run
-Electrum from its root directory without installing it on your
-system; all the pure python dependencies are included in the 'packages'
-directory. To run Electrum from its root directory, just do:
-```
-$ ./run_electrum
+```bash
+pytest electrum/tests -v
 ```
 
-You can also install Electrum on your system, by running this command:
-```
-$ sudo apt-get install python3-setuptools python3-pip
-$ python3 -m pip install --user .
-```
+Install as a user package instead of editable mode:
 
-This will download and install the Python dependencies used by
-Electrum instead of using the 'packages' directory.
-It will also place an executable named `electrum` in `~/.local/bin`,
-so make sure that is on your `PATH` variable.
-
-
-### Development version (git clone)
-
-_(For OS-specific instructions, see [here for Windows](contrib/build-wine/README_windows.md),
-and [for macOS](contrib/osx/README_macos.md))_
-
-Check out the code from GitHub:
-```
-$ git clone https://github.com/GiverofMemory/electrodoge.git
-$ cd electrum
-$ git submodule update --init
+```bash
+python3 -m pip install --user .
 ```
 
-Run install (this should install dependencies):
-```
-$ python3 -m pip install --user -e .
-```
+## Security Notes
 
-Create translations (optional):
-```
-$ sudo apt-get install python-requests gettext
-$ ./contrib/pull_locale
-```
+- Verify the repository remote before building or publishing binaries.
+- Treat wallet seeds, keystores, and exported private keys as sensitive material.
+- Prefer reproducible or deterministic build paths from `contrib/` for release artifacts.
+- Review server configuration and network defaults before production use.
 
-Finally, to start Electrum:
-```
-$ ./run_electrum
-```
+## License
 
-### Run tests
-
-Run unit tests with `pytest`:
-```
-$ pytest electrum/tests -v
-```
-
-To run a single file, specify it directly like this:
-```
-$ pytest electrum/tests/test_bitcoin.py -v
-```
-
-## Creating Binaries
-
-- [Linux (tarball)](contrib/build-linux/sdist/README.md)
-- [Linux (AppImage)](contrib/build-linux/appimage/README.md)
-- [macOS](contrib/osx/README.md)
-- [Windows](contrib/build-wine/README.md)
-- [Android](contrib/android/Readme.md)
-
-
-## Contributing
-
-Any help testing the software, reporting or fixing bugs, reviewing pull requests
-and recent changes, writing tests, or helping with outstanding issues is very welcome.
-Implementing new features, or improving/refactoring the codebase, is of course
-also welcome, but to avoid wasted effort, especially for larger changes,
-we encourage discussing these on the issue tracker or IRC first.
-
-Besides [GitHub](https://github.com/spesmilo/electrum),
-most communication about Electrum development happens on IRC, in the
-`#electrum` channel on Libera Chat. The easiest way to participate on IRC is
-with the web client, [web.libera.chat](https://web.libera.chat/#electrum).
-
-## Migration
-
-Uses [BIP32 address](https://en.bitcoin.it/wiki/Electrum#History) generation.
-
-If you want to migrate from Electrodoge to Dogecoin core [see here](https://bitcointalk.org/index.php?topic=5320198.0).
-
-Between [Exodus and Electrodoge](https://bitcointalk.org/index.php?topic=5325562.0).
-
-## To Do
-
-- xPub is corrected for dogecoin but others like yPub and zPub have not been modified from bitcoin yet.
-
-- Checkpoints need to be updated from BTSY and would be nice to ignore updates to checkpoints folder from upstream, .gitignore might help.
+MIT-style licensing inherited from the upstream Electrum codebase. See [UNLICENSE](/home/frank/githubs/GITS/electrodoge/UNLICENSE).
