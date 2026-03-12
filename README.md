@@ -8,27 +8,27 @@
 
 ## Description
 
-Electrum Doge is a lightweight Dogecoin wallet derived from the Electrum codebase. It provides SPV-based wallet operation, deterministic key management, and a desktop GUI without requiring a full Dogecoin node.
+Lightweight Dogecoin wallet derived from Electrum. Uses SPV, deterministic seeds, and a PyQt5 desktop interface. Full Dogecoin node is not required.
 
 ## Core Features
 
-- Deterministic wallet generation and recovery from seed phrases
-- SPV verification against Electrum-compatible Dogecoin servers
-- Desktop GUI via PyQt5
+- SPV wallet operation over Electrum-style servers
+- Deterministic seed-based wallet generation and recovery
 - Transaction creation, signing, and broadcast
-- Optional hardware wallet integrations through extra dependencies
-- Cross-platform packaging for Linux, macOS, Windows, and Android
+- PyQt5 desktop GUI
+- Optional hardware wallet support
+- Cross-platform source builds
 
 ## Setup
 
-System requirements:
+Requirements:
 
 - Python `3.8+`
 - `libsecp256k1`
-- `PyQt5` for the GUI
-- `cryptography` for accelerated crypto operations
+- `PyQt5`
+- `cryptography`
 
-Clone and install:
+Install:
 
 ```bash
 git clone https://github.com/hachshiba/electrum-doge.git
@@ -37,7 +37,7 @@ git submodule update --init --recursive
 python3 -m pip install --user -e ".[gui,crypto]"
 ```
 
-If `libsecp256k1` is not available from your package manager:
+Build `libsecp256k1` locally if needed:
 
 ```bash
 sudo apt-get install automake libtool
@@ -46,19 +46,19 @@ sudo apt-get install automake libtool
 
 ## Usage
 
-Run the wallet from the repository root:
+Start:
 
 ```bash
 ./run_electrum
 ```
 
-Run tests:
+Tests:
 
 ```bash
 pytest electrum/tests -v
 ```
 
-Install as a user package instead of editable mode:
+Non-editable install:
 
 ```bash
 python3 -m pip install --user .
@@ -66,11 +66,11 @@ python3 -m pip install --user .
 
 ## Security Notes
 
-- Verify the repository remote before building or publishing binaries.
-- Treat wallet seeds, keystores, and exported private keys as sensitive material.
-- Prefer reproducible or deterministic build paths from `contrib/` for release artifacts.
-- Review server configuration and network defaults before production use.
+- Protect seeds, keystores, and exported private keys.
+- Verify source and remote before building binaries.
+- Prefer deterministic build paths from `contrib/`.
+- Review server configuration before production use.
 
 ## License
 
-MIT-style licensing inherited from the upstream Electrum codebase. See [UNLICENSE](/home/frank/githubs/GITS/electrodoge/UNLICENSE).
+MIT-style license inherited from upstream. See [UNLICENSE](/home/frank/githubs/GITS/electrodoge/UNLICENSE).
