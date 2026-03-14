@@ -13,7 +13,7 @@
 Dogecoin wallet codebase built on Electrum architecture: SPV sync, deterministic seeds, local signing, desktop-first flow.
 
 <p align="center">
-  <img src="./screenshots/photo_2026-03-14_10-22-10.jpg" alt="Electrum Doge desktop wallet screenshot" width="920">
+  <img src="./screenshots/electrum-doge-desktop-wallet.jpg" alt="Electrum Doge desktop wallet screenshot" width="920">
 </p>
 
 ## Snapshot
